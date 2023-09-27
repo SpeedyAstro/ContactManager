@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<section>
+        <hgroup>
+            <h2>Welcome back!</h2>
+            <p>Please enter your details to sign into your account</p>
+        </hgroup>
+
+        <form method = "post" th:action="@{/dologin}" class = "log-form">
+            <div th:if="${param.error}" class="alert alert-danger">Invalid Username and Password</div>
+            <div th:if="${param.logout}" class="alert alert-danger">You have been logged out</div>
+            <div class="group log-input">
+                <input type="text" id = "username" name = "username" placeholder = "Username">
+            </div>
+
+            <div class="group log-input">
+                <input type="password" id = "password" name = "password"  placeholder = "Password">
+            </div>
+            <div class="group">
+<!--                <input type="submit" id="submit" name="submit">-->
+                <button type="submit" class="btn bg-primary text-white">
+                    Login
+                </button>
+                <button type="reset" class="btn btn-warning text-white">
+                    Reset
+                </button>
+            </div>
+
+        </form>
+
+
+</section>
+</body>
+</html>
