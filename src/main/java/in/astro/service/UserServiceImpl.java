@@ -33,6 +33,11 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
+    public String updateUser(User user) {
+        return "User Updated Successfully with id :" + repository.save(user).getId();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> optional = repository.findByEmail(username);
         if (optional.isEmpty()){
