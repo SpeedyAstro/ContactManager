@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.*;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -160,6 +161,8 @@ public class UserController {
         model.addAttribute("title","Show Contacts");
         String name = principal.getName();
         User user = service.getUserByEmail(name);
+        List<Contact> contacts = contactService.findContactUserId(user.getId());
+        model.addAttribute("contacts",contacts);
         return "normal/show_contact";
     }
 
