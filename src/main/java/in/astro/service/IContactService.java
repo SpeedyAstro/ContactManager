@@ -8,4 +8,5 @@ import java.util.List;
 public interface IContactService {
     public String saveContact(Contact contact);
     public Page<Contact> findContactUserId(Integer id, Integer page);
+    public Contact getContactDetails(Integer cid);
 }

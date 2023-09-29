@@ -25,4 +25,9 @@ public class ContactServiceImpl implements IContactService{
         Pageable pageable = PageRequest.of(page, 5);
         return repository.findByUserId(id, pageable);
     }
+
+    @Override
+    public Contact getContactDetails(Integer cid) {
+        return repository.findById(cid).get();
+    }
 }

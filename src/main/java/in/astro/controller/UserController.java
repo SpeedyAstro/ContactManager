@@ -142,6 +142,8 @@ public class UserController {
                         }
                     }
                 }
+            }else{
+                contact.setImage("contact.jpg");
             }
 
             user.getContacts().add(contact);
@@ -168,5 +170,15 @@ public class UserController {
         model.addAttribute("totalPage",contacts.getTotalPages());
         return "normal/show_contact";
     }
+
+//    show contact detail
+    @GetMapping("{cid}/contact")
+    public String showContact(@PathVariable Integer cid, Model model){
+        model.addAttribute("id",cid);
+        Contact contact = contactService.getContactDetails(cid);
+        model.addAttribute("contact",contact);
+        return "normal/contact_detail";
+    }
+
 
 }

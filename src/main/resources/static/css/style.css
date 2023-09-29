@@ -43,13 +43,13 @@ hgroup {
     margin-top: 4em;
 }
 
-span {
-    font-size: 0.95em;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    line-height: 24px;
-    text-transform: uppercase;
-}
+/*span {*/
+/*    font-size: 0.95em;*/
+/*    font-weight: 600;*/
+/*    !*letter-spacing: 0.3em;*!*/
+/*    line-height: 24px;*/
+/*    !*text-transform: uppercase;*!*/
+/*}*/
 
 /*------------------------------------------------------------------
 [ Login Form ]*/
@@ -130,7 +130,7 @@ input[type="checkbox"]:not(:checked) + label, input[type="checkbox"]:checked + l
     padding-left: 10px;
     padding-top: 6px;
     position: relative;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 /*side bar style*/
@@ -187,4 +187,11 @@ input[type="checkbox"]:not(:checked) + label, input[type="checkbox"]:checked + l
 }
 .card-body{
     color: darkblue;
+}
+.my_profile{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid royalblue;
 }
