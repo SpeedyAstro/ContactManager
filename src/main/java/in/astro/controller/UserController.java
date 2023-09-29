@@ -7,6 +7,7 @@ import in.astro.service.IContactService;
 import in.astro.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -156,13 +157,15 @@ public class UserController {
         return "normal/add_contact_form";
     }
     // Show contacts
-    @GetMapping("/contacts")
-    public String showContacts(Model model, Principal principal){
+    @GetMapping("/contacts/{page}")
+    public String showContacts(@PathVariable Integer page,Model model, Principal principal){
         model.addAttribute("title","Show Contacts");
         String name = principal.getName();
         User user = service.getUserByEmail(name);
-        List<Contact> contacts = contactService.findContactUserId(user.getId());
+        Page<Contact> contacts = contactService.findContactUserId(user.getId(),page);
         model.addAttribute("contacts",contacts);
+        model.addAttribute("currentPage",page);
+        model.addAttribute("totalPage",contacts.getTotalPages());
         return "normal/show_contact";
     }
 
