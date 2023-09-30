@@ -9,6 +9,7 @@
 <section>
     <div class="card mr-3 ml-3">
         <div class="card-body">
+            <div th:if="${contact != null}">
             <div class="container text-center">
                 <img src="" style="height: 200px; width: 200px" th:src="@{'/img/'+${contact.image}}" alt="profilePhoto" class="my_profile">
                 <h3 class="mt-3" ><span th:text="${contact.name}"></span> ( <span th:text="${contact.secondName}"></span> )</h3>
@@ -38,9 +39,15 @@
                         <th:block th:utext="${contact.description}"></th:block>
                     </div>
                     <div class="container mt-3">
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <button th:onclick="|deleteContact(${contact.cid})|" class="btn btn-danger btn-sm">Delete</button>
                         <button class="btn btn-primary btn-sm">Update</button>
                     </div>
+                </div>
+            </div>
+            <div th:unless="${contact != null}">
+                <!-- Display "User not found" message if contact is null -->
+                <h2 class="text-center">This Contact is not associated with your Account</h2>
+
             </div>
         </div>
     </div>

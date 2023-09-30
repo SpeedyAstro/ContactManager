@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.nio.file.*;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -172,13 +173,26 @@ public class UserController {
     }
 
 //    show contact detail
-    @GetMapping("{cid}/contact")
-    public String showContact(@PathVariable Integer cid, Model model){
+    @GetMapping("/{cid}/contact")
+    public String showContact(@PathVariable Integer cid, Model model, Principal principal){
+        String name = principal.getName();
+        User user = service.getUserByEmail(name);
+//        Optional<Contact> optional = contactService.findById(cid);
+//        if(optional.isEmpty()){
+//
+//        }
         model.addAttribute("id",cid);
-        Contact contact = contactService.getContactDetails(cid);
+        Contact contact = contactService.getContactDetails(cid,user);
+//        model.addAttribute("title",contact.getName());
         model.addAttribute("contact",contact);
         return "normal/contact_detail";
     }
 
+    @GetMapping("/{cid}/delete")
+    public String deleteContact(@PathVariable Integer cid,HttpSession session){
+        contactService.deleteContact(cid);
+        session.setAttribute("message", new Message("Contact Deleted Successfully", "success"));
+        return "redirect:/user/contacts/0";
+    }
 
 }
