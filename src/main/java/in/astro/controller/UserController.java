@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.nio.file.*;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -112,7 +113,7 @@ public class UserController {
 //        return "normal/add_contact_form";
 //    }
     @PostMapping("/process-contact")
-    public String processContact(@ModelAttribute Contact contact,
+    public String processContact(@ModelAttribute Contact contact, @RequestParam(value = "old_img") String old_img,
                                  @RequestParam(value = "profileImage", required = false) MultipartFile file,
                                  Principal principal, HttpSession session) {
         String name = principal.getName();
@@ -122,28 +123,18 @@ public class UserController {
             if (!file.isEmpty()) {
                 // Validate the uploaded file as an image here if needed.
                 contact.setImage(file.getOriginalFilename());
+                File deleteFile = new ClassPathResource("static/img").getFile();
+                File file1 = new File(deleteFile,old_img);
+                file1.delete();
 
                 // Ensure that the image directory exists and is writable.
-                File imageDirectory = new File("static/img");
-                if (!imageDirectory.exists()) {
-                    imageDirectory.mkdirs();
-                }
-
-                Path path = Paths.get(imageDirectory.getAbsolutePath(), file.getOriginalFilename());
-
-                // Use try-with-resources to automatically close the InputStream
-                try (InputStream inputStream = file.getInputStream()) {
-                    // Use try-with-resources to automatically close the OutputStream
-                    try (OutputStream outputStream = Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-                        // Copy the file content from InputStream to OutputStream
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
-                        }
-                    }
-                }
-            }else{
+                File saveFile = new ClassPathResource("static/img").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+                Files.copy(file.getInputStream(),path,StandardCopyOption.REPLACE_EXISTING);
+                contact.setImage(file.getOriginalFilename());
+            } else if (!old_img.isEmpty()) {
+                contact.setImage(old_img);
+            } else{
                 contact.setImage("contact.jpg");
             }
 
@@ -193,6 +184,18 @@ public class UserController {
         contactService.deleteContact(cid);
         session.setAttribute("message", new Message("Contact Deleted Successfully", "success"));
         return "redirect:/user/contacts/0";
+    }
+
+    @GetMapping("/{cid}/update")
+    public String Updateform(@PathVariable Integer cid,
+                             Map<String,Object> map, HttpSession session){
+        Optional<Contact> optional = contactService.findById(cid);
+        Contact contact = optional.get();
+        if (optional.isPresent()){
+            map.put("contact",optional.get());
+        }
+//        System.out.println(optional.get());
+        return "normal/add_contact_form";
     }
 
 }

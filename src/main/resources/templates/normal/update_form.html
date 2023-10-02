@@ -22,7 +22,7 @@
                                         <i class="fa fa-plus"></i>
                                     </div>
                                 </div>
-                                <input type="text" id="firstName" name="name" th:field="*{name}" placeholder="Enter Name here" required class="form-control">
+                                <input type="text" id="firstName" name="name" th:field="*{name}" placeholder="Enter Name here" class="form-control">
                             </div>
                             <!--                            Second Name-->
                             <div class="input-group mt-3">
@@ -31,8 +31,7 @@
                                         <i class="fas fa-user-alt"></i>
                                     </div>
                                 </div>
-                                <input type="text" id="secondName" name="secondName"  placeholder="Enter Nick here" th:field="*{secondName}" required class="form-control">
-                                <input type="hidden" th:field="*{cid}">
+                                <input type="text" id="secondName" name="secondName"  placeholder="Enter Nick here" th:field="*{secondName}" class="form-control">
                             </div>
                             <!--                            Phone Field-->
                             <div class="input-group mt-3">
@@ -41,7 +40,7 @@
                                         <i class="fas fa-phone"></i>
                                     </div>
                                 </div>
-                                <input type="number" id="phone" name="phoneNo" placeholder="Enter Phone Number" th:field="*{phoneNo}"  required class="form-control">
+                                <input type="number" id="phone" name="phoneNo" placeholder="Enter Phone Number" th:field="*{phoneNo}" class="form-control">
                             </div>
                             <!--                            Email-->
                             <div class="input-group mt-3">
@@ -50,7 +49,7 @@
                                         @
                                     </div>
                                 </div>
-                                <input type="text" id="email" name="email" placeholder="Enter Email id" required th:field="*{email}" class="form-control">
+                                <input type="text" id="email" name="email" placeholder="Enter Email id" th:field="*{email}" class="form-control">
                             </div>
                             <!--                            work-->
                             <div class="input-group mt-3">
@@ -67,10 +66,11 @@
                                           placeholder="Enter Contact Description" th:field="*{description}" cols="30" rows="10"></textarea>
                             </div>
                             <!--                            Contact Image-->
+
                             <div class="container text-center" th:if="${contact != null}">
-                                <img style="width: 250px; height: 250px; border-radius: 10%"  th:src="@{'/img/'+${contact.image}}"  class="img-fluid my_profile" alt="Contact Image" />
-                                <input type="hidden" name="old_img" th:value="${contact.image}">
+                                <img style="width: 250px; height: 250px;" th:src="@{'img/'+${contact.image}}"  class="img-fluid my_profile" alt="Contact Image" />
                             </div>
+
                             <div class="custom-file">
                                 <input type="file" name="profileImage"  id="image">
                             </div>
