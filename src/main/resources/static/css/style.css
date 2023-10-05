@@ -195,3 +195,9 @@ input[type="checkbox"]:not(:checked) + label, input[type="checkbox"]:checked + l
     border-radius: 50%;
     border: 2px solid royalblue;
 }
+.gradient-bg {
+    background: linear-gradient(to right, rgba(218, 192, 163, 0.5), #0F2C59);
+    /* Other CSS properties */
+    color: white; /* Example text color for readability */
+    padding: 20px; /* Example padding */
+}

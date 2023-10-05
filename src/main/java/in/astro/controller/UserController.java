@@ -148,7 +148,7 @@ public class UserController {
             session.setAttribute("message", new Message("Contact not saved", "danger"));
         }
 
-        return "normal/add_contact_form";
+        return "redirect:/user/"+contact.getCid()+"/contact";
     }
     // Show contacts
     @GetMapping("/contacts/{page}")
@@ -196,6 +196,12 @@ public class UserController {
         }
 //        System.out.println(optional.get());
         return "normal/add_contact_form";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model){
+        model.addAttribute("title","Profile Page");
+        return "normal/profile";
     }
 
 }
