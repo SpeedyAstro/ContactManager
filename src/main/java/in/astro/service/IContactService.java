@@ -13,4 +13,5 @@ public interface IContactService {
     public Contact getContactDetails(Integer cid, User user);
     public Optional<Contact> findById(Integer cid);
     public String deleteContact(Integer cid);
+    public List<Contact> searchByName(String name,User user);
 }

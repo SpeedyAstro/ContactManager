@@ -1,5 +1,6 @@
 package in.astro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class Contact {
     @Column(length = 500)
     private String description;
     @ManyToOne
+    @JsonIgnore
     private User user;
 }

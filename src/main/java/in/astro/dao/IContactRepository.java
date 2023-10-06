@@ -13,4 +13,5 @@ public interface IContactRepository extends JpaRepository<Contact,Integer> {
     public Page<Contact> findByUserId(Integer id, Pageable pageable);
 
     public Contact findByCidAndUser(Integer id, User user);
+    public List<Contact> findByNameContainingAndUser(String name, User user);
 }

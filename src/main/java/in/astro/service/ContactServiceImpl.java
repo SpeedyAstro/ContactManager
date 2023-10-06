@@ -20,13 +20,13 @@ public class ContactServiceImpl implements IContactService{
     private IContactRepository repository;
     @Override
     public String saveContact(Contact contact) {
-
+        Contact contact1 = repository.save(contact);
         return repository.save(contact).getName()+"has Successfully added into contact list";
     }
 
     @Override
     public Page<Contact> findContactUserId(Integer id, Integer page) {
-        Pageable pageable = PageRequest.of(page, 5);
+        Pageable pageable = PageRequest.of(page, 8);
         return repository.findByUserId(id, pageable);
     }
 
@@ -44,5 +44,10 @@ public class ContactServiceImpl implements IContactService{
     public String deleteContact(Integer cid) {
         repository.deleteById(cid);
         return "Deleted Successfully";
+    }
+
+    @Override
+    public List<Contact> searchByName(String name, User user) {
+        return repository.findByNameContainingAndUser(name,user);
     }
 }
