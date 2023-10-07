@@ -21,7 +21,7 @@ const search = () => {
         }).then(data => {
             let text = `<div class='list-group'>`
             data.forEach((contact) => {
-                text += `<a href='/user/${contact.cid}/contact' class='list-group-item list-group-action'>${contact.name}</a>`
+                text += `<a href='/user/${contact.cid}/contact' class='list-group-item list-group-item-action'>${contact.name}</a>`
             })
             text += '</div>'
             $(".search-result").html(text)

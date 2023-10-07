@@ -210,4 +210,18 @@ public class UserController {
         return "normal/profile";
     }
 
+    @GetMapping("/settings")
+    public String openSetting(){
+        return "normal/settings";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam String old_password, @RequestParam String new_password,
+                                 Principal principal,HttpSession session){
+        String name = principal.getName();
+        Message message = service.changePassword(name, old_password, new_password);
+        session.setAttribute("message",message);
+        return "redirect:/user/index";
+    }
+
 }

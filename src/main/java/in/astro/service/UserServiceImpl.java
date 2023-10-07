@@ -1,6 +1,7 @@
 package in.astro.service;
 
 import in.astro.dao.IUserRepository;
+import in.astro.helper.Message;
 import in.astro.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -50,5 +51,18 @@ public class UserServiceImpl implements IUserService{
         }
     }
 
+
+    @Override
+    public Message changePassword(String username,String old_password,String new_password){
+        User user = getUserByEmail(username);
+//        System.out.println("********************************>>>>>>>>"+user.getPassword());
+        if (encoder.matches(old_password,user.getPassword())){
+            user.setPassword(encoder.encode(new_password));
+            updateUser(user);
+            return new Message("Your Password is successfully changed...","success");
+        }else {
+            return new Message("Old Password is incorrect try again...", "danger");
+        }
+    }
 
 }
